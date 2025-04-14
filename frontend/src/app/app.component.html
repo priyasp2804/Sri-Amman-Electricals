@@ -1,0 +1,15 @@
+<ng-container *ngIf="showLayout">
+  <app-navbar (toggleSidebarEvent)="toggleSidebar()"></app-navbar>
+  
+  <div class="main-layout">
+    <app-sidebar [class.open]="isSidebarOpen" [isCollapsed]="!isSidebarOpen"></app-sidebar>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</ng-container>
+
+<!-- For login pages (no navbar/sidebar) -->
+<ng-container *ngIf="!showLayout">
+  <router-outlet></router-outlet>
+</ng-container>

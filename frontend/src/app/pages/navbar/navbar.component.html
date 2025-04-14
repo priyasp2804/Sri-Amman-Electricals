@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <div class="navbar-content">
+    <button class="hamburger" (click)="toggleSidebar()">☰</button>
+    <span class="company-name">SRI AMMAN ELECTRICALS</span>
+
+    <div class="nav-buttons">
+      <div class="user-info" *ngIf="isLoggedIn">
+        <span class="user-role">{{ userRole }}: {{ userName }}</span>
+      </div>
+      <button *ngIf="!isLoggedIn" (click)="router.navigate(['/'])">Login</button>
+      <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</nav>

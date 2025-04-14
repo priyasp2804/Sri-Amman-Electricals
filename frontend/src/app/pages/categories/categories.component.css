@@ -1,0 +1,159 @@
+/* Container */
+.category-container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #f3f4f6; /* light grey */
+    min-height: 100vh;
+    padding-top: 80px; /* Add padding to account for fixed navbar */
+    margin-top: 78px;
+}
+
+/* Heading */
+.category-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+    margin-top: -60px;
+}
+
+/* Add Button */
+.add-category-btn {
+    align-self: flex-end;
+    background-color: #0ea5e9; /* sky blue */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    margin-top: -15px;
+}
+
+.add-category-btn:hover {
+    background-color: #0284c7;
+}
+
+/* Grid layout */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    text-align: center;
+}
+
+/* Category card */
+.category-card {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Category name */
+.category-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #111827;
+}
+
+/* Action buttons (edit/delete) */
+.category-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.category-actions button {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.edit-btn {
+    background-color: #10b981; /* green */
+}
+
+.edit-btn:hover {
+    background-color: #059669;
+}
+
+.delete-btn {
+    background-color: #ef4444; /* red */
+}
+
+.delete-btn:hover {
+    background-color: #dc2626;
+}
+
+/* Input section */
+.input-section {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.input-section input {
+    padding: 0.6rem;
+    width: 60%;
+    border: 2px solid #bae6fd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.info-message {
+    text-align: center;
+    color: #6b7280;
+    margin-top: 1rem;
+}
+
+/* Desktop styles (sidebar visible) */
+@media (min-width: 769px) {
+    .category-container {
+        margin-left: 290px; /* Only apply when sidebar is visible */
+    }
+}
+
+/* Mobile styles (sidebar hidden) */
+@media (max-width: 768px) {
+    .category-container {
+        margin-left: 0; /* Remove margin when sidebar is hidden */
+        padding-top: 70px;
+    }
+    
+    .category-title {
+        font-size: 1.5rem;
+    }
+
+    .add-category-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+}

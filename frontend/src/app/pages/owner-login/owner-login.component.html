@@ -1,0 +1,76 @@
+<div class="full-page-container">
+  <div class="login-container">
+    <h2 *ngIf="isFirstTime">Owner Registration</h2>
+    <h2 *ngIf="!isFirstTime">Owner Login</h2>
+
+    <!-- First-time Owner Registration Form -->
+    <form *ngIf="isFirstTime" [formGroup]="registerForm" (ngSubmit)="registerOwner()">
+      <label>Name:</label>
+      <input type="text" formControlName="name" required placeholder="Enter your name" />
+      <div *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched" class="error">
+        Name is required.
+      </div>
+
+      <label>Phone:</label>
+      <input type="text" formControlName="phone" required placeholder="Enter your phone number" />
+      <div *ngIf="registerForm.controls['phone'].invalid && registerForm.controls['phone'].touched" class="error">
+        Valid phone number is required.
+      </div>
+
+      <label>Gender:</label>
+      <select formControlName="gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <div *ngIf="registerForm.controls['gender'].invalid && registerForm.controls['gender'].touched" class="error">
+        Gender is required.
+      </div>
+
+      <label>Email:</label>
+      <input type="email" formControlName="email" required placeholder="Enter your email" />
+      <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched" class="error">
+        Enter a valid email.
+      </div>
+
+      <label>Address:</label>
+      <textarea formControlName="address" required placeholder="Enter your address"></textarea>
+      <div *ngIf="registerForm.controls['address'].invalid && registerForm.controls['address'].touched" class="error">
+        Address is required.
+      </div>
+
+      <label>Password:</label>
+      <input type="password" formControlName="password" required placeholder="Enter your password" />
+      <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched" class="error">
+        Password must be at least 6 characters.
+      </div>
+
+      <label>Confirm Password:</label>
+      <input type="password" formControlName="confirmPassword" required placeholder="Confirm your password" />
+      <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched" class="error">
+        Password does not match.
+      </div>
+
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </form>
+
+    <!-- Returning Owner Login Form -->
+    <form *ngIf="!isFirstTime" [formGroup]="loginForm" (ngSubmit)="loginOwner()">
+      <label>Email:</label>
+      <input type="email" formControlName="loginEmail" required placeholder="Enter your email" />
+      <div *ngIf="loginForm.controls['loginEmail'].invalid && loginForm.controls['loginEmail'].touched" class="error">
+        Enter a valid email.
+      </div>
+
+      <label>Password:</label>
+      <input type="password" formControlName="loginPassword" required placeholder="Enter your password" />
+      <div *ngIf="loginForm.controls['loginPassword'].invalid && loginForm.controls['loginPassword'].touched" class="error">
+        Password is required.
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    </form>
+
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</div>

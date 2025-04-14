@@ -1,0 +1,121 @@
+<div class="employee-container">
+  <h2 class="employee-title">Employee Management</h2>
+
+  <div class="form-action">
+    <button class="submit-btn" (click)="onAddNew()" *ngIf="!showForm">Add Employee</button>
+  </div>
+
+  <form *ngIf="showForm" [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="employee-form">
+    <div class="form-grid">
+      <!-- Name -->
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name" />
+        <div *ngIf="employeeForm.get('name')?.touched && employeeForm.get('name')?.invalid" class="text-red-500">
+          Name is required.
+        </div>
+      </div>
+
+      <!-- Employee ID -->
+      <div class="form-field">
+        <label for="employeeId">Employee ID</label>
+        <input id="employeeId" type="text" formControlName="employeeId" />
+        <div *ngIf="employeeForm.get('employeeId')?.touched && employeeForm.get('employeeId')?.invalid" class="text-red-500">
+          Employee ID is required.
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" />
+        <div *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.invalid" class="text-red-500">
+          <span *ngIf="employeeForm.get('email')?.errors?.['required']">Email is required.</span>
+          <span *ngIf="employeeForm.get('email')?.errors?.['email']">Enter a valid email.</span>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="form-field">
+        <label for="phone">Phone</label>
+        <input id="phone" type="text" formControlName="phone" />
+        <div *ngIf="employeeForm.get('phone')?.touched && employeeForm.get('phone')?.invalid" class="text-red-500">
+          <span *ngIf="employeeForm.get('phone')?.errors?.['required']">Phone number is required.</span>
+          <span *ngIf="employeeForm.get('phone')?.errors?.['pattern']">Enter a valid 10-digit phone number.</span>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="form-field">
+        <label for="address">Address</label>
+        <input id="address" type="text" formControlName="address" />
+        <div *ngIf="employeeForm.get('address')?.touched && employeeForm.get('address')?.invalid" class="text-red-500">
+          Address is required.
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" />
+        <div *ngIf="employeeForm.get('password')?.touched && employeeForm.get('password')?.invalid" class="text-red-500">
+          <span *ngIf="employeeForm.get('password')?.errors?.['required']">Password is required.</span>
+          <span *ngIf="employeeForm.get('password')?.errors?.['minlength']">Minimum 6 characters required.</span>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="form-action">
+        <button type="submit" [disabled]="employeeForm.invalid" class="submit-btn">
+          {{ isEditing ? 'Update Employee' : 'Add Employee' }}
+        </button>
+        <button type="button" (click)="onCancel()" class="delete-btn">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Table of employees -->
+  <div class="table-responsive">
+    <table class="employee-table" *ngIf="employees.length > 0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Emp ID</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Password</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees; let i = index">
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.employeeId }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.phone }}</td>
+          <td>{{ emp.address }}</td>
+          <td class="password-cell">
+            <input 
+              [type]="emp.showPassword ? 'text' : 'password'" 
+              [value]="emp.plainPassword" 
+              readonly 
+              class="password-display"
+            />
+            <button type="button" (click)="togglePassword(emp)" class="eye-icon" title="Toggle Password">
+              <i [class]="emp.showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </td>
+          <td class="action-btns">
+            <button class="edit-btn" (click)="onEdit(i)">Edit</button>
+            <button class="delete-btn" (click)="onDelete(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="empty-msg" *ngIf="employees.length === 0">
+      <p>No employees added yet.</p>
+    </div>
+  </div>
+</div>

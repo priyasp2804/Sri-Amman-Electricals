@@ -1,0 +1,27 @@
+<div class="full-page-container">
+  <div class="login-container">
+    <h2>Employee Login</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginEmployee()">
+      <div>
+        <label for="phone">Phone Number</label>
+        <input id="phone" type="text" formControlName="phone" placeholder="Enter your phone number" />
+        <div *ngIf="loginForm.controls['phone'].invalid && loginForm.controls['phone'].touched" class="error-message">
+          Phone number is required and must be 10 digits.
+        </div>
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
+        <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="error-message">
+          Password is required.
+        </div>
+      </div>
+
+      <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="brand-container">
+  <h2 class="brand-title">
+    {{ selectedCategory ? selectedCategory + ' Brands' : 'All Brands' }}
+  </h2>
+
+  <!-- Add Brand Button -->
+  <button class="add-brand-btn" (click)="showAddForm = true">➕ Add Brand</button>
+
+  <!-- Add Brand Form -->
+  <div class="input-section" *ngIf="showAddForm">
+    <input
+      type="text"
+      placeholder="Enter brand name"
+      [(ngModel)]="newBrand"
+      (keyup.enter)="addBrand()"
+    />
+    <button class="edit-btn" (click)="addBrand()">Add</button>
+    <button class="delete-btn" (click)="showAddForm = false">Cancel</button>
+  </div>
+
+  <!-- Edit Brand Form (MOVED TO TOP) -->
+  <div class="input-section" *ngIf="showEditForm">
+    <input
+      type="text"
+      placeholder="Edit brand name"
+      [(ngModel)]="editedBrand"
+      (keyup.enter)="saveEdit()"
+    />
+    <button class="edit-btn" (click)="saveEdit()">Save</button>
+    <button class="delete-btn" (click)="cancelEdit()">Cancel</button>
+  </div>
+
+  <!-- Brand Grid -->
+  <div class="brand-grid">
+    <div *ngIf="filteredBrands.length === 0" class="no-brands-message">
+      No brands found {{ selectedCategory ? 'for this category' : '' }}.
+    </div>
+    
+    <div class="brand-card" *ngFor="let brand of filteredBrands; let i = index" (click)="goToProducts(brand)">
+      <span class="brand-name">{{ brand.name }}</span>
+      <div class="brand-actions" (click)="$event.stopPropagation()">
+        <button class="edit-btn" (click)="editBrand(i)">✏️ Edit</button>
+        <button class="delete-btn" (click)="deleteBrand(i)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

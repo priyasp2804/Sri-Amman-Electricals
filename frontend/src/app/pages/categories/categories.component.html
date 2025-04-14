@@ -1,0 +1,52 @@
+<div class="category-container">
+  <h2 class="category-title">
+    {{ selectedBrand ? selectedBrand + ' Categories' : 'All Categories' }}
+  </h2>
+
+  <button class="add-category-btn" (click)="showAddForm = true" *ngIf="selectedBrand">➕ Add Category</button>
+
+  <!-- Add Form -->
+  <div class="input-section" *ngIf="showAddForm">
+    <input
+      type="text"
+      placeholder="Enter category name"
+      [(ngModel)]="newCategory"
+      (keyup.enter)="addCategory()"
+    />
+    <button class="edit-btn" (click)="addCategory()">Add</button>
+    <button class="delete-btn" (click)="showAddForm = false">Cancel</button>
+  </div>
+
+  <!-- Edit Form -->
+  <div class="input-section" *ngIf="showEditForm">
+    <input
+      type="text"
+      placeholder="Edit category name"
+      [(ngModel)]="editedCategory"
+      (keyup.enter)="saveEdit()"
+    />
+    <button class="edit-btn" (click)="saveEdit()">Save</button>
+    <button class="delete-btn" (click)="cancelEdit()">Cancel</button>
+  </div>
+
+  <!-- Grid -->
+  <div class="category-grid">
+    <div *ngIf="categories.length === 0" style="text-align: center">
+      No categories found {{ selectedBrand ? 'for this brand' : '' }}.
+    </div>
+    
+    <div class="category-card" *ngFor="let category of categories">
+      <span (click)="navigateToProducts(category)" class="category-name">
+        {{ category.name }}
+      </span>
+      <div class="category-actions">
+        <button class="edit-btn" (click)="editCategory(category)">✏️ Edit</button>
+        <button class="delete-btn" (click)="deleteCategory(category)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="info-message" *ngIf="!selectedBrand">
+    Select a brand to add new categories. You can edit or delete any category.
+  </p>
+</div>

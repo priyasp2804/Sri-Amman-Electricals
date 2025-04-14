@@ -1,0 +1,41 @@
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e0f7fa; /* Light blue */
+  }
+  
+  h1 {
+    color: #0277bd; /* Sky blue */
+    font-size: 28px;
+  }
+  
+  .selection-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:first-child {
+    background-color: #4caf50; /* Light green */
+    color: white;
+  }
+  
+  button:last-child {
+    background-color: #757575; /* Grey */
+    color: white;
+  }
+  

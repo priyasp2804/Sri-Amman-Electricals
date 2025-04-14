@@ -1,0 +1,20 @@
+<div class="home-container">
+  <!-- Remove the duplicate app-navbar -->
+  <div class="content">
+    <div class="main-content">
+      <div class="welcome-card">
+        <h1>Welcome to Sri Amman Electricals</h1>
+        <div class="dashboard-overview">
+          <div class="overview-card" *ngIf="isOwner">
+            <h3>Owner Dashboard</h3>
+            <p>Manage your business operations</p>
+          </div>
+          <div class="overview-card" *ngIf="isEmployee">
+            <h3>Employee Dashboard</h3>
+            <p>Access your work tools</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

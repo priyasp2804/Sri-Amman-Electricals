@@ -1,0 +1,101 @@
+<div class="product-container">
+  <h2 class="product-title">
+    {{ brandName && categoryName ? 
+       brandName + ' - ' + categoryName + ' Products' : 
+       'All Products' }}
+  </h2>
+
+  <!-- Empty state when no products available -->
+  <div *ngIf="products.length === 0" class="empty-state">
+    <p style="text-align: center; margin-bottom: 2rem;">
+      No products available {{ brandName && categoryName ? 'for this brand and category' : '' }}.
+    </p>
+    <div *ngIf="brandName && categoryName" class="centered-btn">
+      <button (click)="showAddForm = true" class="add-product-btn">
+        Add Product
+      </button>
+    </div>
+  </div>
+
+  <!-- Show form -->
+  <div *ngIf="showAddForm || editIndex !== null" class="form-card">
+    <h3 class="centered-title">{{ editIndex === null ? 'Add Product' : 'Edit Product' }}</h3>
+
+    <form #productForm="ngForm" (ngSubmit)="productForm.valid && (editIndex === null ? addProduct() : updateProduct())" class="product-form">
+      <div class="form-group">
+        <label for="name">Product Name:</label>
+        <input id="name" type="text" [(ngModel)]="newProduct.name" name="name" required #name="ngModel" placeholder="e.g. Switch, LED Bulb" />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+          Product name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input id="quantity" type="number" [(ngModel)]="newProduct.quantity" name="quantity" required #quantity="ngModel" min="0" placeholder="e.g. 50" />
+        <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="error-message">
+          Valid quantity is required
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="price">Price (₹):</label>
+        <input id="price" type="number" [(ngModel)]="newProduct.price" name="price" required #price="ngModel" min="0" step="0.01" placeholder="e.g. 100" />
+        <div *ngIf="price.invalid && (price.dirty || price.touched)" class="error-message">
+          Valid price is required
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <button type="submit" class="submit-btn" [disabled]="productForm.invalid">
+          {{ editIndex === null ? 'Add Product' : 'Update Product' }}
+        </button>
+        <button type="button" class="cancel-btn" (click)="cancelForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Show Add Product Button when there are products -->
+  <div *ngIf="brandName && categoryName && products.length > 0 && !showAddForm" class="centered-btn">
+    <button (click)="showAddForm = true" class="add-product-btn">
+      Add Product
+    </button>
+  </div>
+
+  <!-- Product Table -->
+  <table *ngIf="products.length > 0" class="product-table">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th *ngIf="!brandName">Brand</th>
+        <th *ngIf="!categoryName">Category</th>
+        <th>Quantity</th>
+        <th>Price (₹)</th>
+        <th>Last Restock Date</th>
+        <th>Last Restock Qty</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index">
+        <td>{{ product.name }}</td>
+        <td *ngIf="!brandName">{{ product.brand }}</td>
+        <td *ngIf="!categoryName">{{ product.category }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>{{ product.price | currency:'INR':'symbol':'1.2-2' }}</td>
+        <td>{{ product.lastRestockDate | date: 'shortDate' }}</td>
+        <td>{{ product.lastRestockQuantity }}</td>
+        <td class="action-btns">
+          <button (click)="editProduct(i)" class="edit-btn">Edit</button>
+          <button (click)="deleteProduct(i)" class="delete-btn">Delete</button>
+          <button (click)="viewStockHistory(product)" class="stock-btn">Stock</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Message when not viewing specific brand/category -->
+  <div *ngIf="!brandName || !categoryName" class="bottom-message">
+    <p>Navigate through a brand and category to add new products. You can edit or delete any product.</p>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Stock History</h2>
+
+  <div class="top-bar">
+    <button class="download-btn" (click)="downloadExcel()">Download Excel</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Action</th>
+          <th>User</th>
+          <th>Role</th>
+          <th>Previous Qty</th>
+          <th>New Qty</th>
+          <th>Category</th>
+          <th>Brand</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of stockHistory">
+          <td>{{ entry.type }}</td>
+          <td>{{ entry.name }}</td>
+          <td>{{ entry.action }}</td>
+          <td>{{ entry.userName }}</td>
+          <td>{{ entry.userRole }}</td>
+          <td>{{ entry.previousQuantity || '-' }}</td>
+          <td>{{ entry.newQuantity || '-' }}</td>
+          <td>{{ entry.category || '-' }}</td>
+          <td>{{ entry.brand || '-' }}</td>
+          <td>{{ entry.timestamp | date:'medium' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

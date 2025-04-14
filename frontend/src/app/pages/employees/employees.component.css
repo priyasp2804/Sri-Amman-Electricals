@@ -1,0 +1,195 @@
+.employee-container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #f3f4f6;
+    min-height: 100vh;
+    padding-top: 80px;
+    margin-top: 78px;
+  }
+  
+  /* Add space on the left only for desktop where sidebar is visible */
+  @media (min-width: 769px) {
+    .employee-container {
+      margin-left: 290px; /* Space for sidebar */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .employee-container {
+      margin-left: 0;
+      padding-top: 70px;
+    }
+  }
+  
+  /* Title */
+  .employee-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #0077cc;
+    text-align: center;
+    margin-top: -40px;
+  }
+  
+  .password-display {
+    border: none;
+    background: transparent;
+    font-family: monospace;
+    width: 120px;
+  }
+  
+  .eye-icon {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .employee-form {
+    width: 100%;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-field label {
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .form-field input {
+    padding: 0.5rem;
+    border: 2px solid #38bdf8; /* sky blue border */
+    border-radius: 0.5rem;
+    outline: none;
+    font-size: 0.95rem;
+  }
+  
+  .form-field input:focus {
+    border-color: #0ea5e9; /* brighter sky blue on focus */
+  }
+  
+  .form-action {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  
+  .submit-btn {
+    padding: 0.6rem 1.5rem;
+    background-color: #10b981; /* vibrant green */
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #059669;
+  }
+  
+  /* Table */
+  .employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9fafb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .employee-table th,
+  .employee-table td {
+    border: 1px solid #e5e7eb;
+    padding: 0.75rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #111827;
+  }
+  
+  .employee-table th {
+    background-color: #e0f2fe;
+    font-weight: 600;
+  }
+  
+  /* Action Buttons */
+  .action-btns {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .edit-btn {
+    background-color: #10b981;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover {
+    background-color: #059669;
+  }
+  
+  .delete-btn {
+    background-color: #ef4444;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .delete-btn:hover {
+    background-color: #dc2626;
+  }
+  
+  /* Empty message */
+  .empty-msg {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .empty-msg p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .employee-form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .employee-form input,
+    .submit-btn {
+      width: 100%;
+    }
+  
+    .employee-table {
+      font-size: 0.85rem;
+    }
+  }
+  
