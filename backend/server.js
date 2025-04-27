@@ -19,7 +19,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:4200',
-    'https://sri-amman-electricals-a5vi5nxzz-priyadarshini-s-ps-projects.vercel.app'
+    'https://sri-amman-electricals.vercel.app'
   ], 
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
