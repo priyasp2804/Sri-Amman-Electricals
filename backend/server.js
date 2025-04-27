@@ -8,7 +8,7 @@ import productRoutes from "./routes/productRoutes.js";
 import stockHistoryRoutes from "./routes/stockHistoryRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import brandRoutes from "./routes/brandRoutes.js";
-import reportRoutes from "./routes/reportRoutes.js"; 
+import reportRoutes from "./routes/reportRoutes.js"; // Add this import
 
 dotenv.config();
 connectDB();
@@ -19,8 +19,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:4200',
-    'https://sri-amman-electricals.vercel.app',
-    'https://sri-amman-electricals-5ypon2orm-priyadarshini-s-ps-projects.vercel.app'
+    'https://sri-amman-electricals-a5vi5nxzz-priyadarshini-s-ps-projects.vercel.app'
   ], 
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -43,7 +42,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/stock-history", stockHistoryRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/brands", brandRoutes);
-app.use("/api/reports", reportRoutes); 
+app.use("/api/reports", reportRoutes); // Add this line for reports
 
 // Error handling middleware
 app.use((err, req, res, next) => {
