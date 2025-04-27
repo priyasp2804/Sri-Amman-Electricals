@@ -35,7 +35,6 @@ export const addBrand = async (req, res) => {
   }
 };
 
-// Update brand
 export const updateBrand = async (req, res) => {
   const { name } = req.body;
   try {

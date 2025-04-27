@@ -25,6 +25,13 @@ app.use(cors({
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "Welcome to the Sri Amman Electricals API",
+  });
+});
+
 // Routes
 app.use("/api/owners", ownerRoutes);
 app.use("/api/employees", employeeRoutes);
