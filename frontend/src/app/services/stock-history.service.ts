@@ -9,7 +9,6 @@ import { environment } from '../../environments/environment';
 })
 export class StockHistoryService {
   private apiUrl = `${environment.apiUrl}/api/stock-history`;
-
   constructor(private http: HttpClient) {}
 
   private getHeaders(): { headers: HttpHeaders } {

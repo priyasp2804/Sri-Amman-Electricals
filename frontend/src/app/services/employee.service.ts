@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -20,40 +20,20 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders() {
-    const token = localStorage.getItem('token');
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      })
-    };
-  }
-
   getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.baseUrl, this.getHeaders());
+    return this.http.get<Employee[]>(this.baseUrl);
   }
 
   addEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(
-      `${this.baseUrl}/register`, 
-      employee,
-      this.getHeaders()
-    );
+    return this.http.post<Employee>(`${this.baseUrl}/register`, employee); // ✅ Correct route
   }
+  
 
   updateEmployee(id: string, employee: Employee): Observable<Employee> {
-    return this.http.put<Employee>(
-      `${this.baseUrl}/${id}`,
-      employee,
-      this.getHeaders()
-    );
+    return this.http.put<Employee>(`${this.baseUrl}/${id}`, employee);
   }
 
   deleteEmployee(id: string): Observable<any> {
-    return this.http.delete(
-      `${this.baseUrl}/${id}`,
-      this.getHeaders()
-    );
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }

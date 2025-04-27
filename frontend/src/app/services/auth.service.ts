@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -8,81 +8,53 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private baseUrl = environment.apiUrl;
-
   constructor(private http: HttpClient) {}
 
-  private getHeaders() {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-  }
-
-  private getAuthHeaders() {
-    const token = localStorage.getItem('token');
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      })
-    };
-  }
-
+  // ✔️ Check if owner exists
   checkOwnerExists(): Observable<{ exists: boolean }> {
-    return this.http.get<{ exists: boolean }>(
-      `${this.baseUrl}/api/owners/owner-exists`,
-      this.getHeaders()
-    );
+    return this.http.get<{ exists: boolean }>(`${this.baseUrl}/api/owners/owner-exists`);
   }
 
+  // ✔️ Register new owner
   registerOwner(data: any): Observable<any> {
-    return this.http.post(
-      `${this.baseUrl}/api/owners/register`, 
-      data,
-      this.getHeaders()
-    );
+    return this.http.post(`${this.baseUrl}/api/owners/register`, data);
   }
 
+  // ✔️ Owner login with token & name storage
   loginOwner(credentials: any): Observable<any> {
-    return this.http.post<any>(
-      `${this.baseUrl}/api/owners/login`, 
-      credentials,
-      this.getHeaders()
-    ).pipe(
+    return this.http.post<any>(`${this.baseUrl}/api/owners/login`, credentials).pipe(
       tap((res) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('role', 'owner');
-        localStorage.setItem('name', res.owner.name);
+        localStorage.setItem('name', res.owner.name); // ✅ Store owner name
       })
     );
   }
 
+  // ✔️ Employee login with token & name storage
   loginEmployee(credentials: any): Observable<any> {
-    return this.http.post<any>(
-      `${this.baseUrl}/api/employees/login`, 
-      credentials,
-      this.getHeaders()
-    ).pipe(
+    return this.http.post<any>(`${this.baseUrl}/api/employees/login`, credentials).pipe(
       tap((res) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('role', 'employee');
-        localStorage.setItem('name', res.employee.name);
+        localStorage.setItem('name', res.employee.name); // ✅ Store employee name
       })
     );
   }
 
+  // ✔️ Fetch owner profile
   getOwnerProfile(): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseUrl}/api/owners/profile`,
-      this.getAuthHeaders()
-    );
+    const token = localStorage.getItem('token');
+    return this.http.get<any>(`${this.baseUrl}/api/owners/profile`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
   }
 
+  // ✔️ Fetch employee profile
   getEmployeeProfile(): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseUrl}/api/employees/profile`,
-      this.getAuthHeaders()
-    );
+    const token = localStorage.getItem('token');
+    return this.http.get<any>(`${this.baseUrl}/api/employees/profile`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
   }
 }

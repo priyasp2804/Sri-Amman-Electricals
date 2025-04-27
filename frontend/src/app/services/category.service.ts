@@ -9,7 +9,6 @@ import { environment } from '../../environments/environment';
 })
 export class CategoryService {
   private apiUrl = `${environment.apiUrl}/api/categories`;
-
   constructor(private http: HttpClient) {}
 
   private getHeaders() {
