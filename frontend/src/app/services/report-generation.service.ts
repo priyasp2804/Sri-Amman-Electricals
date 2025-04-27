@@ -4,12 +4,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Brand, Category, Product, ReportFilters, ReportItem } from '../models/report.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportGenerationService {
-  private baseUrl = 'http://localhost:5000/api/reports';
+  private baseUrl = `${environment.apiUrl}/api/reports`;
 
   constructor(private http: HttpClient) {}
 

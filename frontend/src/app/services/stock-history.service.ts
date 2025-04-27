@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockHistoryService {
-  private apiUrl = 'http://localhost:5000/api/stock-history';
+  private apiUrl = `${environment.apiUrl}/api/stock-history`;
 
   constructor(private http: HttpClient) {}
 
