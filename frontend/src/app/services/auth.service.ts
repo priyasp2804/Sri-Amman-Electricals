@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = environment.apiUrl;
+  private baseUrl = 'https://sri-amman-electricals.onrender.com';
   constructor(private http: HttpClient) {}
 
   // ✔️ Check if owner exists
