@@ -25,7 +25,7 @@ export class EmployeeService {
   }
 
   addEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(`${this.baseUrl}/register`, employee); // ✅ Correct route
+    return this.http.post<Employee>(`${this.baseUrl}/register`, employee);
   }
   
 
