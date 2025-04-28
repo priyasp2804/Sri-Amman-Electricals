@@ -1,3 +1,4 @@
+// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
@@ -7,42 +8,41 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'https://sri-amman-electricals.onrender.com';
+  private baseUrl = environment.apiUrl;
+
   constructor(private http: HttpClient) {}
 
-  // ✔️ Check if owner exists
   checkOwnerExists(): Observable<{ exists: boolean }> {
     return this.http.get<{ exists: boolean }>(`${this.baseUrl}/api/owners/owner-exists`);
   }
 
-  // ✔️ Register new owner
   registerOwner(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/api/owners/register`, data);
   }
 
-  // ✔️ Owner login with token & name storage
   loginOwner(credentials: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/api/owners/login`, credentials).pipe(
       tap((res) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('role', 'owner');
-        localStorage.setItem('name', res.owner.name); // ✅ Store owner name
+        localStorage.setItem('name', res.owner.name);
       })
     );
   }
 
-  // ✔️ Employee login with token & name storage
   loginEmployee(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/api/employees/login`, credentials).pipe(
+    return this.http.post<any>(`${this.baseUrl}/api/employees/login`, credentials, {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true
+    }).pipe(
       tap((res) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('role', 'employee');
-        localStorage.setItem('name', res.employee.name); // ✅ Store employee name
+        localStorage.setItem('name', res.employee.name);
       })
     );
   }
 
-  // ✔️ Fetch owner profile
   getOwnerProfile(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get<any>(`${this.baseUrl}/api/owners/profile`, {
@@ -50,7 +50,6 @@ export class AuthService {
     });
   }
 
-  // ✔️ Fetch employee profile
   getEmployeeProfile(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get<any>(`${this.baseUrl}/api/employees/profile`, {
