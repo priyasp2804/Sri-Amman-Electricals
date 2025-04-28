@@ -15,12 +15,11 @@ connectDB();
 
 const app = express();
 
-// CORS configuration
 app.use(cors({
   origin: [
     'http://localhost:4200',
-    'https://sri-amman-electricals-fkvrz2ezz-priyadarshini-s-ps-projects.vercel.app',
-    'https://sri-amman-electricals.vercel.app' // Add this if you have a custom domain
+    'https://sri-amman-electricals-*.vercel.app', // Wildcard for all preview URLs
+    'https://sri-amman-electricals.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
